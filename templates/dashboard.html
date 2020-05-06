@@ -1,7 +1,45 @@
 {% extends "layout.html" %}
 {% block body %}
+<div class='container'>
   <h3>Control Panel</h3>
   <small>Welcome {{session['username']}}</small>
   <hr/>
-  <a href='/addarticle' class='btn btn-danger' >Add Article</a>
+  <a href='/addarticle' class='btn btn-primary' >Add Article</a>
+</div>
+ <br>
+{% if articles %}
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Title</th>
+      <th scope="col">Author</th>
+      <th scope="col">Content</th>
+      <th scope="col">Created Date</th>
+
+    </tr>
+  </thead>
+  <tbody>
+  {% for article in articles %}
+   <tr>
+      <th scope="row">{{article.id}}</th>
+      <td><a href='/article/{{article.id}}'>{{article.title}}</a></td>
+      <td>{{article.author}}</td>
+      <td>{{article.content}}</td>
+      <td>{{article.created_date}}</td>
+      <td><a class='btn btn-warning' href='/update/{{article.id}}'>Edit</a></td>
+      <td><a class='btn btn-danger' href='/delete/{{article.id}}'>Delete</a></td>
+    </tr>
+  
+  {% endfor %}
+   
+  </tbody>
+</table>
+  
+{% else %}
+<div class='alert alert-danger'>
+ You do not have any articles..
+</div>
+{% endif %}
+ 
 {% endblock body %}

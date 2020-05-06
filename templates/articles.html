@@ -2,5 +2,25 @@
 
 
 {% block body %}
+<div class='container'>
+<h3>Articles</h3>
+<hr/>
+{% if articles %}
+<form action='/search' method='post'>
+    <div class="search">
+    <input type="text"  name='keyword' class=" input-lg" maxlength="64" placeholder="Search....">
+    <button type="submit" class="btn btn-primary ">Search</button>
+    </div>
+</form>
+<hr>
+<ul class="list-group">
+ {% for article in articles  %}
+     <li class="list-group-item"><a href='/article/{{article.id}}'>{{article.title}}</a></li>
+ {% endfor %}
 
+</ul>
+{% else %}
+<div class='alert alert-danger'> Articles not found</div>
+{% endif %}
+</div>
 {% endblock body %}
